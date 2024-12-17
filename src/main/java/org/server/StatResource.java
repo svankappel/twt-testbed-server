@@ -19,10 +19,11 @@ public class StatResource extends CoapResource {
     @Override
     public void handleGET(CoapExchange exchange) {
 
-        System.out.println("Received GET, Resource: stat");
+        System.out.println(ServerTimestamp.getElapsedTime()+"Received GET, Resource: stat");
 
         // Respond to the request
         byte[] content = (Integer.toString(this.sharedData.globalCnt)).getBytes();
         exchange.respond(ResponseCode.CONTENT, content);
+        System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: stat");
     }
 }

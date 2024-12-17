@@ -19,7 +19,7 @@ public class LargeDownloadResource extends CoapResource {
 
     @Override
     public void handlePUT(CoapExchange exchange) {
-        System.out.println("Received PUT, Resource: largedownload, Payload: " + new String(exchange.getRequestPayload()));
+        System.out.println(ServerTimestamp.getElapsedTime()+"Received PUT, Resource: largedownload, Payload: " + new String(exchange.getRequestPayload()));
         this.sharedData.globalCnt++;
 
         String receivedData = new String(exchange.getRequestPayload());
@@ -44,8 +44,10 @@ public class LargeDownloadResource extends CoapResource {
             String response = header + formattedContent + "\n" + footer;
 
             exchange.respond(ResponseCode.CHANGED, response.getBytes());
+            System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: largedownload");
         } catch (NumberFormatException e) {
             exchange.respond(ResponseCode.BAD_REQUEST, "Invalid format");
+            System.out.println(ServerTimestamp.getElapsedTime()+"Sent Error");
         }
     }
 }

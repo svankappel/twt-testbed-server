@@ -1,6 +1,8 @@
-# CoAP Java Server
+# TWT Testbed Server
 
-This project is a CoAP server implemented in Java using the Californium library. 
+This project is a CoAP server implemented in Java using the Californium library. This server is used by the TWT Testbed application:
+
+- [TWT Testbed](https://github.com/svankappel/twt-testbed)
 
 ## Prerequisites
 
@@ -37,7 +39,7 @@ A pre-built executable JAR file is included in the repository. You can run the s
 To run the server, use the following command:
 
 ```sh
-java -jar coap-server.jar
+java -jar twt-testbed-server.jar
 ```
 
 ## Building the Project
@@ -74,14 +76,14 @@ To download the dependencies and build the project, use the following command:
 ```sh
 mvn clean package
 ```
-This will generate a JAR file that includes the dependencies in the ```target``` directory, typically named ```coap-server-1.0-SNAPSHOT-jar-with-dependencies.jar```.
+This will generate a JAR file that includes the dependencies in the ```target``` directory, typically named ```twt-testbed-server-1.0-SNAPSHOT-jar-with-dependencies.jar```.
 
 ### Run
 
 To run the server, use the following command:
 
 ```sh
-java -jar target/coap-server-1.0-SNAPSHOT-jar-with-dependencies.jar
+java -jar target/twt-testbed-server-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## Liscence
