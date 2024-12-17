@@ -60,15 +60,9 @@ public class Main {
         CoapServer server = new CoapServer();
 
         SharedData sharedData = new SharedData();
-        
-        // Add the HelloResource
-        server.add(new HelloResource());
 
         // Add the SensorResource
         server.add(new SensorResource(sharedData));
-
-        // Add the ValidateResource
-        server.add(new ValidateResource(sharedData));
 
         // Add the StatResource
         server.add(new StatResource(sharedData));
@@ -79,11 +73,13 @@ public class Main {
         server.add(new LargeUploadEchoResource(sharedData));
 
         // Add the ActuatorResource
-        server.add(new ActuatorResource(sharedData));
+        ActuatorResource actuatorResource = new ActuatorResource(sharedData);
+        server.add(actuatorResource);
         server.add(new ActuatorEchoResource(sharedData));
         server.add(new ActuatorStatResource(sharedData));
 
-
+        // Add the ValidateResource
+        server.add(new ValidateResource(sharedData, actuatorResource));
 
 
         // Add CoAP endpoint
@@ -127,7 +123,7 @@ public class Main {
             ep.addInterceptor(new MessageTracer());
         }
 
-        System.out.println("CoAP server is listening on port " + COAP_PORT);
-        System.out.println("CoAPs server is listening on port " + COAPS_PORT);
+        System.out.println(ServerTimestamp.getElapsedTime()+"CoAP server is listening on port " + COAP_PORT);
+        System.out.println(ServerTimestamp.getElapsedTime()+"CoAPs server is listening on port " + COAPS_PORT);
     }
 }

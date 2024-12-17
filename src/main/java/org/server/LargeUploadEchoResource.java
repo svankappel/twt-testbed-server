@@ -20,9 +20,10 @@ public class LargeUploadEchoResource extends CoapResource {
     @Override
     public void handlePUT(CoapExchange exchange) {
 
-        System.out.println("Received PUT, Resource: largeuploadecho, Payload: " + new String(exchange.getRequestPayload(), 0, Math.min(20, exchange.getRequestPayload().length)) + (exchange.getRequestPayload().length > 20 ? "..." : ""));
+        System.out.println(ServerTimestamp.getElapsedTime()+"Received PUT, Resource: largeuploadecho, Payload: " + new String(exchange.getRequestPayload(), 0, Math.min(20, exchange.getRequestPayload().length)) + (exchange.getRequestPayload().length > 20 ? "..." : ""));
         this.sharedData.globalCnt++;
         content = exchange.getRequestPayload();
         exchange.respond(ResponseCode.CHANGED, ("Received: " + new String(content)).getBytes());
+        System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: largeuploadecho");
     }
 }

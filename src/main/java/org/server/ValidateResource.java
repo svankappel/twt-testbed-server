@@ -11,7 +11,9 @@ public class ValidateResource extends CoapResource {
 
     private SharedData sharedData;
 
-    public ValidateResource(SharedData sharedData) {
+    private ActuatorResource actuatorResource;
+
+    public ValidateResource(SharedData sharedData, ActuatorResource actuatorResource) {
         // Set resource identifier
         super("validate");
         this.sharedData = sharedData;
@@ -21,13 +23,13 @@ public class ValidateResource extends CoapResource {
     @Override
     public void handleGET(CoapExchange exchange) {
 
-        System.out.println("Received GET, Resource: validate");
+        System.out.println(ServerTimestamp.getElapsedTime()+"Received GET, Resource: validate");
         
         // Clear actuator statistics and reset global count
         this.sharedData.globalCnt = 0;
         this.sharedData.actuatorStatistics.clear();
-        // Respond to the request
-        byte[] content = "valid".getBytes();
-        exchange.respond(ResponseCode.CONTENT, content);
+ 
+        exchange.respond(ResponseCode.CONTENT, "valid");
+        System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: validate, Payload: valid");
     }
 }

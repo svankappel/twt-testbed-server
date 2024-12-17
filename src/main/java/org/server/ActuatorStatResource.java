@@ -18,8 +18,9 @@ public class ActuatorStatResource extends CoapResource {
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        System.out.println("Received GET, Resource: actuatorstat");
+        System.out.println(ServerTimestamp.getElapsedTime()+"Received GET, Resource: actuatorstat");
         String stats = sharedData.actuatorStatistics.getStats();
         exchange.respond(ResponseCode.CONTENT, stats);
+        System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: actuatorstat");
     }
 }

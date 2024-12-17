@@ -19,7 +19,7 @@ public class ActuatorEchoResource extends CoapResource {
 
     @Override
     public void handlePUT(CoapExchange exchange) {
-        System.out.println("Received PUT, Payload: " + new String(exchange.getRequestPayload()));
+        System.out.println(ServerTimestamp.getElapsedTime()+"Received PUT, Resource: actuatorecho, Payload: " + new String(exchange.getRequestPayload()));
         try {
             String payload = new String(exchange.getRequestPayload());
             JSONObject data = new JSONObject(payload);
@@ -33,6 +33,7 @@ public class ActuatorEchoResource extends CoapResource {
             System.out.println("Invalid payload format");
         }
 
-        exchange.respond(ResponseCode.CHANGED);
+        //noresponse
+        //exchange.respond(ResponseCode.CHANGED);
     }
 }

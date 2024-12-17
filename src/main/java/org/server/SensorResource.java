@@ -20,9 +20,10 @@ public class SensorResource extends CoapResource {
         // GET method: returns the current content
 
         String payload = new String(exchange.getRequestPayload());
-        System.out.println("Received GET, Resource: sensor");
+        System.out.println(ServerTimestamp.getElapsedTime()+"Received GET, Resource: sensor");
         
         exchange.respond(ResponseCode.CONTENT, content);
+        System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: sensor");
     }
 
     @Override
@@ -30,12 +31,13 @@ public class SensorResource extends CoapResource {
         // PUT method: updates the content with the received payload
         String payload = new String(exchange.getRequestPayload());
         if (!payload.isEmpty()) {
-            System.out.println("Received PUT, Resource: sensor, Payload: " + payload);
+            System.out.println(ServerTimestamp.getElapsedTime()+"Received PUT, Resource: sensor, Payload: " + payload);
         } else {
-            System.out.println("Received PUT, Resource: sensor");
+            System.out.println(ServerTimestamp.getElapsedTime()+"Received PUT, Resource: sensor");
         }
         this.sharedData.globalCnt++;
    
         exchange.respond(ResponseCode.CHANGED, ("Received: " + payload));
+        System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: sensor");
     }
 }
