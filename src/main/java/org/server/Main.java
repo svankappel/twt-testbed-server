@@ -1,4 +1,17 @@
-
+/********************************************************************************
+ * Copyright (c) 12-20-2024 Contributors to the Eclipse Foundation
+ * 
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ * 
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0, or the Eclipse Distribution License
+ * v1.0 which is available at
+ * https://www.eclipse.org/org/documents/edl-v10.php.
+ * 
+ * SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
+ ********************************************************************************/
 
 package org.server;
 
@@ -34,47 +47,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Main class to start the CoAP and CoAPs server.
  * 
- * <p>This class initializes the server with various resources and endpoints.
+ * This class initializes the server with various resources and endpoints.
  * It supports both CoAP and CoAPs protocols. The server configuration is
  * loaded from a file and customized using a DefinitionsProvider.
- * 
- * <p>Resources added to the server:
- * <ul>
- *   <li>SensorResource</li>
- *   <li>StatResource</li>
- *   <li>LargeDownloadResource</li>
- *   <li>LargeUploadAckResource</li>
- *   <li>LargeUploadEchoResource</li>
- *   <li>ActuatorResource</li>
- *   <li>ActuatorEchoResource</li>
- *   <li>ActuatorStatResource</li>
- *   <li>ValidateResource</li>
- * </ul>
- * 
- * <p>Endpoints added to the server:
- * <ul>
- *   <li>CoAP endpoint on port 5683</li>
- *   <li>CoAPs endpoint on port 5684 with DTLS configuration</li>
- * </ul>
- * 
- * <p>The server uses a PSK store and loads credentials and trusted certificates
- * from specified keystore and truststore locations.
- * 
- * <p>Logging is used to capture any errors during the initialization of the
- * keystore.
- * 
- * <p>After starting the server, it prints the listening ports for both CoAP
- * and CoAPs endpoints.
- * 
- * <p>Each endpoint is configured with a MessageTracer interceptor to trace
- * messages.
- * 
- * @see org.eclipse.californium.core.CoapServer
- * @see org.eclipse.californium.core.network.CoapEndpoint
- * @see org.eclipse.californium.scandium.DTLSConnector
- * @see org.eclipse.californium.scandium.config.DtlsConnectorConfig
- * @see org.eclipse.californium.scandium.dtls.pskstore.AdvancedMultiPskStore
- * @see org.eclipse.californium.elements.config.Configuration
  */
 public class Main {
 
@@ -120,13 +95,12 @@ public class Main {
         server.add(new LargeUploadEchoResource(sharedData));
 
         // Add the ActuatorResource
-        ActuatorResource actuatorResource = new ActuatorResource(sharedData);
-        server.add(actuatorResource);
+        server.add(new ActuatorResource(sharedData));
         server.add(new ActuatorEchoResource(sharedData));
         server.add(new ActuatorStatResource(sharedData));
 
         // Add the ValidateResource
-        server.add(new ValidateResource(sharedData, actuatorResource));
+        server.add(new ValidateResource(sharedData));
 
 
         // Add CoAP endpoint
