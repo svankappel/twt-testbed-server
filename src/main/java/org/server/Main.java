@@ -1,3 +1,5 @@
+
+
 package org.server;
 
 import java.io.IOException;
@@ -29,6 +31,51 @@ import org.eclipse.californium.scandium.dtls.CertificateType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Main class to start the CoAP and CoAPs server.
+ * 
+ * <p>This class initializes the server with various resources and endpoints.
+ * It supports both CoAP and CoAPs protocols. The server configuration is
+ * loaded from a file and customized using a DefinitionsProvider.
+ * 
+ * <p>Resources added to the server:
+ * <ul>
+ *   <li>SensorResource</li>
+ *   <li>StatResource</li>
+ *   <li>LargeDownloadResource</li>
+ *   <li>LargeUploadAckResource</li>
+ *   <li>LargeUploadEchoResource</li>
+ *   <li>ActuatorResource</li>
+ *   <li>ActuatorEchoResource</li>
+ *   <li>ActuatorStatResource</li>
+ *   <li>ValidateResource</li>
+ * </ul>
+ * 
+ * <p>Endpoints added to the server:
+ * <ul>
+ *   <li>CoAP endpoint on port 5683</li>
+ *   <li>CoAPs endpoint on port 5684 with DTLS configuration</li>
+ * </ul>
+ * 
+ * <p>The server uses a PSK store and loads credentials and trusted certificates
+ * from specified keystore and truststore locations.
+ * 
+ * <p>Logging is used to capture any errors during the initialization of the
+ * keystore.
+ * 
+ * <p>After starting the server, it prints the listening ports for both CoAP
+ * and CoAPs endpoints.
+ * 
+ * <p>Each endpoint is configured with a MessageTracer interceptor to trace
+ * messages.
+ * 
+ * @see org.eclipse.californium.core.CoapServer
+ * @see org.eclipse.californium.core.network.CoapEndpoint
+ * @see org.eclipse.californium.scandium.DTLSConnector
+ * @see org.eclipse.californium.scandium.config.DtlsConnectorConfig
+ * @see org.eclipse.californium.scandium.dtls.pskstore.AdvancedMultiPskStore
+ * @see org.eclipse.californium.elements.config.Configuration
+ */
 public class Main {
 
     private static final Logger LOG = LoggerFactory.getLogger(Main.class.getName());
@@ -91,7 +138,7 @@ public class Main {
         // Add CoAPs endpoint
         try {
             AdvancedMultiPskStore pskStore = new AdvancedMultiPskStore();
-            pskStore.setKey("cali.svk.nrf70", ".fornium".getBytes());
+            pskStore.setKey("twttestbed", "secretkey".getBytes());
 
             SslContextUtil.Credentials serverCredentials = SslContextUtil.loadCredentials(
                     SslContextUtil.CLASSPATH_SCHEME + KEY_STORE_LOCATION, "server", KEY_STORE_PASSWORD, KEY_STORE_PASSWORD);
