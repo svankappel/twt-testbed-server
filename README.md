@@ -1,6 +1,16 @@
 # TWT Testbed Server
 
-This project is a CoAP server implemented in Java using the Californium library. This server is used by the TWT Testbed application:
+This project is a CoAP server implemented in Java using the Californium library.
+
+It runs two servers:
+- A CoAP server on port 5683.
+- A secure CoAPs server using DTLS on port 5684.
+
+The secure server uses PSK (Pre-Shared Key) authentication with the following credentials:
+- **ID**: `twttestbed`
+- **PSK**: `secretkey`
+
+This server is used by the TWT Testbed application:
 
 - [TWT Testbed](https://github.com/svankappel/twt-testbed)
 

@@ -1,3 +1,18 @@
+/********************************************************************************
+ * Copyright (c) 12-20-2024 Contributors to the Eclipse Foundation
+ * 
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ * 
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0, or the Eclipse Distribution License
+ * v1.0 which is available at
+ * https://www.eclipse.org/org/documents/edl-v10.php.
+ * 
+ * SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
+ ********************************************************************************/
+
 package org.server;
 
 import java.io.IOException;
@@ -29,6 +44,13 @@ import org.eclipse.californium.scandium.dtls.CertificateType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Main class to start the CoAP and CoAPs server.
+ * 
+ * This class initializes the server with various resources and endpoints.
+ * It supports both CoAP and CoAPs protocols. The server configuration is
+ * loaded from a file and customized using a DefinitionsProvider.
+ */
 public class Main {
 
     private static final Logger LOG = LoggerFactory.getLogger(Main.class.getName());
@@ -73,13 +95,12 @@ public class Main {
         server.add(new LargeUploadEchoResource(sharedData));
 
         // Add the ActuatorResource
-        ActuatorResource actuatorResource = new ActuatorResource(sharedData);
-        server.add(actuatorResource);
+        server.add(new ActuatorResource(sharedData));
         server.add(new ActuatorEchoResource(sharedData));
         server.add(new ActuatorStatResource(sharedData));
 
         // Add the ValidateResource
-        server.add(new ValidateResource(sharedData, actuatorResource));
+        server.add(new ValidateResource(sharedData));
 
 
         // Add CoAP endpoint
@@ -91,7 +112,7 @@ public class Main {
         // Add CoAPs endpoint
         try {
             AdvancedMultiPskStore pskStore = new AdvancedMultiPskStore();
-            pskStore.setKey("cali.svk.nrf70", ".fornium".getBytes());
+            pskStore.setKey("twttestbed", "secretkey".getBytes());
 
             SslContextUtil.Credentials serverCredentials = SslContextUtil.loadCredentials(
                     SslContextUtil.CLASSPATH_SCHEME + KEY_STORE_LOCATION, "server", KEY_STORE_PASSWORD, KEY_STORE_PASSWORD);
