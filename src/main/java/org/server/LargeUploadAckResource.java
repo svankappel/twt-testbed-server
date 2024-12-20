@@ -23,6 +23,14 @@ public class LargeUploadAckResource extends CoapResource {
         
         this.sharedData.globalCnt++;
         content = exchange.getRequestPayload();
+
+        //wait for 20 - 50 ms to simulate prossesing and latency
+        try {
+            Thread.sleep((long) (Math.random() * 30 + 20));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         exchange.respond(ResponseCode.CHANGED, ("Received: " + new String(content, 0, Math.min(8, content.length))).getBytes());
         System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: largeuploadack");
     }

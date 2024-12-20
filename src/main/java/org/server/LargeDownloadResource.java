@@ -43,6 +43,13 @@ public class LargeDownloadResource extends CoapResource {
             String formattedContent = randomChars.toString().replaceAll("(.{80})", "$1\n");
             String response = header + formattedContent + "\n" + footer;
 
+            //wait for 20 - 50 ms to simulate prossesing and latency
+            try {
+                Thread.sleep((long) (Math.random() * 30 + 20));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             exchange.respond(ResponseCode.CHANGED, response.getBytes());
             System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: largedownload");
         } catch (NumberFormatException e) {
