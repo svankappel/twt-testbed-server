@@ -196,7 +196,8 @@ public class ActuatorResource extends CoapResource {
             response.setPayload(message);
             response.setType(Type.NON); // Set the response type to NON
             exchange.respond(response);
-            this.sharedData.actuatorStatistics.sent(sharedData.globalCnt);
+            this.sharedData.actuatorStatistics1.sent(sharedData.globalCnt);
+            this.sharedData.actuatorStatistics2.sent(sharedData.globalCnt);
             sharedData.globalCnt++;
             localCnt++;
             System.out.println(ServerTimestamp.getElapsedTime() + 

@@ -61,11 +61,16 @@ public class ActuatorEchoResource extends CoapResource {
         try {
             String payload = new String(exchange.getRequestPayload());
             JSONObject data = new JSONObject(payload);
-            if (data.has("actuator-echo")) {
+            if (data.has("actuator-ech1")) {
                 
                 // Update actuator statistics
-                int messageId = data.getInt("actuator-echo");
-                this.sharedData.actuatorStatistics.received(messageId);
+                int messageId = data.getInt("actuator-ech1");
+                this.sharedData.actuatorStatistics1.received(messageId);
+            } else if (data.has("actuator-ech2")) {
+                
+                // Update actuator statistics
+                int messageId = data.getInt("actuator-ech2");
+                this.sharedData.actuatorStatistics2.received(messageId);
             } else {
                 System.out.println("Invalid payload format");
             }

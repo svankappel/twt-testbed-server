@@ -52,7 +52,8 @@ public class ValidateResource extends CoapResource {
         
         // Clear actuator statistics and reset global count
         this.sharedData.globalCnt = 0;
-        this.sharedData.actuatorStatistics.clear();
+        this.sharedData.actuatorStatistics1.clear();
+        this.sharedData.actuatorStatistics2.clear();
  
         exchange.respond(ResponseCode.CONTENT, "valid");
         System.out.println(ServerTimestamp.getElapsedTime()+"Sent Response, Resource: validate, Payload: valid");

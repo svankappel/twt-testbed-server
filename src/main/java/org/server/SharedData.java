@@ -22,5 +22,6 @@ package org.server;
  */
 public class SharedData {
     public int globalCnt = 0;
-    public ActuatorStatistics actuatorStatistics = new ActuatorStatistics();
+    public ActuatorStatistics actuatorStatistics1 = new ActuatorStatistics();
+    public ActuatorStatistics actuatorStatistics2 = new ActuatorStatistics();
 }

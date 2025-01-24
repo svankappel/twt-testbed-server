@@ -18,6 +18,8 @@ package org.server;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.server.resources.CoapExchange;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 /**
@@ -54,7 +56,13 @@ public class ActuatorStatResource extends CoapResource {
         System.out.println(ServerTimestamp.getElapsedTime()+"Received GET, Resource: actuatorstat");
 
         // Get the actuator statistics
-        String stats = sharedData.actuatorStatistics.getStats();
+        String stats = sharedData.actuatorStatistics1.getStats() + "\n" + sharedData.actuatorStatistics2.getStats();    
+
+        try (FileWriter writer = new FileWriter("result_double_echo.txt", true)) {
+            writer.write(stats + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Send the response
         exchange.respond(ResponseCode.CONTENT, stats);
